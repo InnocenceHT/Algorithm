@@ -3,7 +3,7 @@ package algorithm.sort;
 /*
     1.定义一个学生类Student,具有年龄age和username两个属性，并通过comparable接口提供比较规则
  */
-public class Student {
+public class Student implements Comparable<Student>{
     private String username;
     private int age;
 
@@ -37,5 +37,10 @@ public class Student {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    @Override
+    public int compareTo(Student o) {
+        return this.getAge()-o.getAge();
     }
 }
