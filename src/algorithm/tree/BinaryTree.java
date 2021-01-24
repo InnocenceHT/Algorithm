@@ -1,5 +1,7 @@
 package algorithm.tree;
 
+import algorithm.linear.Queue;
+
 public class BinaryTree<Key extends Comparable<Key>, Value> {
     //记录根结点
     private Node root;
@@ -186,4 +188,149 @@ public class BinaryTree<Key extends Comparable<Key>, Value> {
             return x;
         }
     }
+
+    //使用前序遍历，获取整个树中所有的键
+    public Queue<Key> preErgodic() {
+        Queue<Key> keys = new Queue<>();
+        preErgodic(root, keys);
+        return keys;
+    }
+
+    //使用前序遍历，获取指定树x的所有键，并放到keys队列中
+    private void preErgodic(Node x, Queue<Key> keys) {
+        if (x == null) {
+            return;
+        }
+
+        //把x结点的key放到keys中
+        keys.enqueue(x.key);
+
+        //递归遍历x结点的左子树
+        if (x.left != null) {
+            preErgodic(x.left, keys);
+        }
+
+        //递归遍历x结点的右子树
+        if (x.right != null) {
+            preErgodic(x.right, keys);
+        }
+    }
+
+    //使用中序遍历获取树中的所有键
+    public Queue<Key> midErgodic() {
+        Queue<Key> keys = new Queue<>();
+        midErgodic(root, keys);
+        return keys;
+    }
+
+    //使用中序遍历，获取指定树x中所有的键，并存放到key中
+    private void midErgodic(Node x, Queue<Key> keys) {
+        if (x == null) {
+            return;
+        }
+         //先递归，把左子树中的键放到keys中
+        if (x.left != null) {
+            midErgodic(x.left, keys);
+        }
+
+        //把当前结点的键放到keys中
+        keys.enqueue(x.key);
+
+        //再递归，把右子树中的键放到keys中
+        if (x.right != null) {
+            midErgodic(x.right, keys);
+        }
+    }
+
+    //使用后序遍历，把整个树中所有的键返回
+    public Queue<Key> afterErgodic() {
+        Queue<Key> keys = new Queue<>();
+        afterErgodic(root,keys);
+
+        return keys;
+    }
+
+    //使用后序遍历，把指定树x中所有的键放入到keys中
+    private void afterErgodic(Node x, Queue<Key> keys) {
+        if (x == null) {
+            return;
+        }
+
+        //通过递归，把左子树中所有的键放入到keys中
+        if (x.left != null) {
+            afterErgodic(x.left,keys);
+        }
+
+        //通过递归把右子树中所有的键放入到keys中
+        if (x.right != null) {
+            afterErgodic(x.right, keys);
+        }
+
+        //把x结点的键放入到keys中
+        keys.enqueue(x.key);
+    }
+
+    //使用层序遍历，获取整个树中所有的键
+    public Queue<Key> layerErgodic() {
+        //定义两个队列，分别存储树中的键和树中的结点
+        Queue<Key> keys = new Queue<>();
+        Queue<Node> nodes = new Queue<>();
+
+        //默认往队列中放入根结点
+        nodes.enqueue(root);
+
+        while (!nodes.isEmpty()) {
+            //从队列中弹出一个结点，把keys放入到keys中
+            Node n = nodes.dequeue();
+            keys.enqueue(n.key);
+
+            //判断当前结点还有没有左子结点，如果有，则放入到nodes中
+            if (n.left != null) {
+                nodes.enqueue(n.left);
+            }
+
+            //判断当前结点还有没有右子结点，如果有，则放入到nodes中
+            if (n.right != null) {
+                nodes.enqueue(n.right);
+            }
+        }
+
+        return keys;
+    }
+
+    //获取整个树的最大深度
+    public int maxDepth() {
+        return maxDepth(root);
+    }
+
+
+    //获取指定树的最大深度
+    private int maxDepth(Node x) {
+        if (x == null) {
+            return 0;
+        }
+
+        //x的最大深度
+        int max = 0;
+        //左子树的最大深度
+        int maxL = 0;
+        //右子树的最大深度
+        int maxR = 0;
+
+        //计算x结点左子树的最大深度
+        if (x.left != null) {
+            maxL = maxDepth(x.left);
+        }
+
+        //计算x结点右子树的最大深度
+        if (x.right != null) {
+            maxR = maxDepth(x.right);
+        }
+
+        //比较左子树的最大深度和右子树的最大深度，取较大值+1
+        max = maxL>maxR?maxL+1:maxR+1;
+
+        return max;
+    }
+
 }
