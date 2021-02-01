@@ -55,7 +55,6 @@ public class BinaryTree<Key extends Comparable<Key>, Value> {
         }else if (cmp < 0){
             //2.如果key小于x结点的键，则继续找x结点的左子树
             x.left = put(x.left, key, value);
-
         }else {
             //3.如果key等于x结点的键，则替换x结点的值为value即可
             x.value = value;
@@ -77,7 +76,6 @@ public class BinaryTree<Key extends Comparable<Key>, Value> {
 
         //x树不为null
         //比较key和x结点的键的大小
-
         int cmp = key.compareTo(x.key);
         if (cmp > 0) {
             //1.如果key大于x结点的键，则继续找x结点的右子树
@@ -113,7 +111,6 @@ public class BinaryTree<Key extends Comparable<Key>, Value> {
         }else if (cmp < 0){
             //2.如果key小于x结点的键，则继续找x结点的左子树
             x.left = delete(x.left, key);
-
         }else {
             //3.如果key等于x结点的键，就完成了真正的删除结点动作，要删除的结点就是x
 
