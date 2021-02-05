@@ -291,7 +291,6 @@ public class BinaryTree<Key extends Comparable<Key>, Value> {
                 nodes.enqueue(n.right);
             }
         }
-
         return keys;
     }
 
@@ -299,7 +298,6 @@ public class BinaryTree<Key extends Comparable<Key>, Value> {
     public int maxDepth() {
         return maxDepth(root);
     }
-
 
     //获取指定树的最大深度
     private int maxDepth(Node x) {
@@ -329,5 +327,4 @@ public class BinaryTree<Key extends Comparable<Key>, Value> {
 
         return max;
     }
-
 }
