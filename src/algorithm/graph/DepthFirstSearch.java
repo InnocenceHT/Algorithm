@@ -42,5 +42,4 @@ public class DepthFirstSearch {
     public int count() {
         return count;
     }
-
 }

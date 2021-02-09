@@ -2,7 +2,7 @@ package algorithm.graph;
 
 import algorithm.linear.Queue;
 
-public class Graph {
+public class Digraph {
     //顶点数目
     private final int V;
     //边的数目
@@ -10,10 +10,9 @@ public class Graph {
     //邻接表
     private Queue<Integer>[] adj;
 
-    public Graph(int V) {
+    public Digraph(int V) {
         //初始化顶点数量
         this.V = V;
-
         //初始化边的数量
         this.E = 0;
         //初始化邻接表
@@ -23,6 +22,7 @@ public class Graph {
             adj[i] = new Queue<Integer>();
         }
     }
+
 
     //获取顶点的数目
     public int V() {
@@ -34,20 +34,30 @@ public class Graph {
         return E;
     }
 
-    //向图中添加一条边v-w
+    //向有向图中添加一条边v->w
     public void addEdge(int v, int w) {
-        //在无向图中，边是没有方向的，所以该边既可以说是从v到w的边，也可以说是从w到v的边，因此需要让w出现在v的邻接表中，并且还要让v出现在w的邻接表中
+        //只需要让顶点w出现在顶点v的邻接表中，因为边是有方向的，最终顶点v的邻接表中存储的相邻顶点的含义是：v->其他顶点
         adj[v].enqueue(w);
-        adj[w].enqueue(v);
-        //边的数量+1
         E++;
     }
 
-    //获取和顶点v相邻的所有顶点
+    //获取由v指出的边所连接的所有顶点
     public Queue<Integer> adj(int v) {
         return adj[v];
     }
 
-    //
+    //该图的反向图
+    private Digraph reverse() {
+        //创建有向图对象
+        Digraph r = new Digraph(V);
 
+        for (int v = 0; v < V; v++) {
+            //获取由该顶点v指出的所有边
+            for (Integer w : adj[v]) {//原图中表示的是由顶点v->w的边
+                r.addEdge(w,v);//w->v
+            }
+        }
+
+        return r;
+    }
 }
