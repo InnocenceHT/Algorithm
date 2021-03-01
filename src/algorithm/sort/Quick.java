@@ -85,7 +85,6 @@ public class Quick {
         //交换分界值
         exch(a,lo,right);
 
-
         return  right;
     }
 

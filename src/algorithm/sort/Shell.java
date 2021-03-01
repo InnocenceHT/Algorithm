@@ -51,7 +51,4 @@ public class Shell {
         a[i] = a[j];
         a[j] = temp;
     }
-
-
-
 }
